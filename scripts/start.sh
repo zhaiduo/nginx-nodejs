@@ -44,14 +44,11 @@ fi
 
 ## Install Node Packages
 if [ -f "$WEBROOT/package.json" ] ; then
-  cd $WEBROOT && npm install
+  cd $WEBROOT && npm install && echo "NPM modules installed"
 fi
 
 ## Run nodeserver
 if  [ -f "$WEBROOT/server.js" ] ; then
-  if [ ! -z "$WEBROOT" ]; then
-   WEBROOT=/var/www/html
-  fi
   supervisorctl start nodeserver
 fi
 
