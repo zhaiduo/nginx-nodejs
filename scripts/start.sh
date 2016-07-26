@@ -49,6 +49,9 @@ fi
 
 ## Run nodeserver
 if  [ -f "$WEBROOT/server.js" ] ; then
+  if [ ! -z "$WEBROOT" ]; then
+   WEBROOT=/var/www/html
+  fi
   supervisorctl start nodeserver
 fi
 
