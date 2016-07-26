@@ -40,6 +40,12 @@ if [ ! -d "/var/www/html/.git" ]; then
  fi
 fi
 
+
+if [ -f "$WEBROOT/packages.json" ] ; then
+  cd $WEBROOT && npm install
+fi
+
+
 # Display Version Details or not
 if [[ "$HIDE_NGINX_HEADERS" == "0" ]] ; then
  sed -i "s/server_tokens off;/server_tokens on;/g" /etc/nginx/nginx.conf
