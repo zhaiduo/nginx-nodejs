@@ -41,7 +41,7 @@ if [ ! -d "/var/www/html/.git" ]; then
 fi
 
 
-if [ -f "$WEBROOT/packages.json" ] ; then
+if [ -f "$WEBROOT/package.json" ] ; then
   cd $WEBROOT && npm install
 fi
 
