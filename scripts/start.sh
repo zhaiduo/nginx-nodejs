@@ -47,11 +47,6 @@ if [ -f "$WEBROOT/package.json" ] ; then
   cd $WEBROOT && npm install && echo "NPM modules installed"
 fi
 
-## Run nodeserver
-if  [ -f "$WEBROOT/server.js" ] ; then
-  supervisorctl start nodeserver
-fi
-
 # Display Version Details or not
 if [[ "$HIDE_NGINX_HEADERS" == "0" ]] ; then
  sed -i "s/server_tokens off;/server_tokens on;/g" /etc/nginx/nginx.conf
@@ -72,3 +67,8 @@ fi
 
 # Start supervisord and services
 /usr/bin/supervisord -n -c /etc/supervisord.conf
+
+## Run nodeserver
+if  [ -f "$WEBROOT/server.js" ] ; then
+  supervisorctl start nodeserver
+fi
