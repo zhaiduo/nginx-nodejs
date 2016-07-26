@@ -60,6 +60,8 @@ RUN chmod 755 /letsencrypt-setup
 
 # copy in code
 ADD src/ /var/www/html/
+RUN mkdir -p /var/log/node/
+
 
 EXPOSE 443 80
 
