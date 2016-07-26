@@ -67,8 +67,3 @@ fi
 
 # Start supervisord and services
 /usr/bin/supervisord -n -c /etc/supervisord.conf
-
-## Run nodeserver
-if  [ -f "$WEBROOT/server.js" ] ; then
-  supervisorctl start nodeserver
-fi
