@@ -11,5 +11,7 @@ if [ -z "$GIT_NAME" ]; then
 fi
 
 cd /var/www/html
+supervisorctl stop nodeserver
 git pull
 chown -Rf nginx:nginx /var/www/html
+supervisorctl start nodeserver
