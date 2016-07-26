@@ -9,6 +9,7 @@ RUN echo http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories 
     nginx \
     supervisor \
     curl \
+    nodejs-lts \
     bc \
     gcc \
     musl-dev \
@@ -49,13 +50,13 @@ RUN ln -s /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled/defau
 
 # Add Scripts
 ADD scripts/start.sh /start.sh
-ADD scripts/letsencrypt-setup.sh /letsencrypt-setup.sh
+ADD scripts/letsencrypt-setup /letsencrypt-setup
 ADD scripts/pull /usr/bin/pull
 ADD scripts/push /usr/bin/push
-ADD scripts/renew /usr/bin/renew
-RUN chmod 755 /usr/bin/pull && chmod 755 /usr/bin/push && chmod 755 /usr/bin/renew
+ADD scripts/letsencrypt-renew /usr/bin/letsencrypt-renew
+RUN chmod 755 /usr/bin/pull && chmod 755 /usr/bin/push && chmod 755 /usr/bin/letsencrypt-renew
 RUN chmod 755 /start.sh
-RUN chmod 755 /letsencrypt-setup.sh
+RUN chmod 755 /letsencrypt-setup
 
 # copy in code
 ADD src/ /var/www/html/
