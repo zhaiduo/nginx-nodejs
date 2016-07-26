@@ -40,11 +40,15 @@ if [ ! -d "/var/www/html/.git" ]; then
  fi
 fi
 
-
+## Install Node Packages
 if [ -f "$WEBROOT/package.json" ] ; then
   cd $WEBROOT && npm install
 fi
 
+## Run nodeserver
+if  [ -f "$WEBROOT/server.js" ] ; then
+  supervistorctl start nodeserver
+fi
 
 # Display Version Details or not
 if [[ "$HIDE_NGINX_HEADERS" == "0" ]] ; then
