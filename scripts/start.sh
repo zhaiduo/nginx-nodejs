@@ -49,7 +49,7 @@ fi
 
 ## Run nodeserver
 if  [ -f "$WEBROOT/server.js" ] ; then
-  supervistorctl start nodeserver
+  supervisorctl start nodeserver
 fi
 
 # Display Version Details or not
