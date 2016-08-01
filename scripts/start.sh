@@ -43,7 +43,7 @@ if [ ! -d "/var/www/html/.git" ]; then
 fi
 
 ## Install Node Packages
-if [ -f "$WEBROOT/package.json" ] ; then
+if [ -f "$WEBROOT/packages.json" ] ; then
   cd $WEBROOT && npm install && echo "NPM modules installed"
 fi
 
