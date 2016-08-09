@@ -13,7 +13,8 @@ fi
 
 # Set custom webroot
 if [ ! -z "$WEBROOT" ]; then
- sed -i "s#root /var/www/html;#root ${WEBROOT};#g" /etc/nginx/sites-available/default.conf
+ sed -i "s#root /var/www/html;#root ${WEBROOT};#g" /etc/nginx/sites-available/default.conf && \
+ sed -i "s#/var/www/html#${WEBROOT}#g" /etc/supervisord.conf
 else
  WEBROOT=/var/www/html
 fi
@@ -32,11 +33,19 @@ if [ ! -d "/var/www/html/.git" ]; then
  # Pull down code from git for our site!
  if [ ! -z "$GIT_REPO" ]; then
    # Remove the test index file
-   rm -Rf /var/www/html/index.html
+   rm -Rf /var/www/html/*
    if [ ! -z "$GIT_BRANCH" ]; then
-     git clone -b $GIT_BRANCH $GIT_REPO /var/www/html/
+     if [ -z "$GIT_USERNAME" ] && [ -z "$GIT_PERSONAL_TOKEN" ]; then
+       git clone -b $GIT_BRANCH $GIT_REPO /var/www/html/
+     else
+       git clone -b ${GIT_BRANCH} https://${GIT_USERNAME}:${GIT_PERSONAL_TOKEN}@${GIT_REPO} /var/www/html
+     fi
    else
-     git clone $GIT_REPO /var/www/html/
+     if [ -z "$GIT_USERNAME" ] && [ -z "$GIT_PERSONAL_TOKEN" ]; then
+       git clone $GIT_REPO /var/www/html/
+     else
+       git clone https://${GIT_USERNAME}:${GIT_PERSONAL_TOKEN}@${GIT_REPO} /var/www/html
+     fi
    fi
    chown -Rf nginx.nginx /var/www/html
  fi
