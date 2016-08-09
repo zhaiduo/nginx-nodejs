@@ -43,26 +43,13 @@ if [ ! -d "/var/www/html/.git" ]; then
 fi
 
 ## Install Node Packages
-if [ -f "$WEBROOT/packages.json" ] ; then
+if [ -f "$WEBROOT/package.json" ] ; then
   cd $WEBROOT && npm install && echo "NPM modules installed"
 fi
 
 # Display Version Details or not
 if [[ "$HIDE_NGINX_HEADERS" == "0" ]] ; then
  sed -i "s/server_tokens off;/server_tokens on;/g" /etc/nginx/nginx.conf
-fi
-
-# Very dirty hack to replace variables in code with ENVIRONMENT values
-if [[ "$TEMPLATE_NGINX_HTML" == "1" ]] ; then
-  for i in $(env)
-  do
-    variable=$(echo "$i" | cut -d'=' -f1)
-    value=$(echo "$i" | cut -d'=' -f2)
-    if [[ "$variable" != '%s' ]] ; then
-      replace='\$\$_'${variable}'_\$\$'
-      find /var/www/html -type f -exec sed -i -e 's/'${replace}'/'${value}'/g' {} \;
-    fi
-  done
 fi
 
 # Start supervisord and services
