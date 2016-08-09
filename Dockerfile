@@ -59,6 +59,7 @@ RUN chmod 755 /usr/bin/pull && chmod 755 /usr/bin/push && chmod 755 /usr/bin/let
 
 # copy in code
 ADD src/ /var/www/html/
+ADD errors/ /var/www/errors/
 RUN mkdir -p /var/log/node/
 
 
