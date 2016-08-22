@@ -62,6 +62,7 @@ ADD src/ /var/www/html/
 ADD errors/ /var/www/errors/
 RUN mkdir -p /var/log/node/
 
+VOLUME /var/www/html/
 
 EXPOSE 443 80
 
