@@ -26,7 +26,14 @@ RUN echo http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories 
     mkdir -p /etc/nginx && \
     mkdir -p /var/www/app && \
     mkdir -p /run/nginx && \
-    mkdir -p /var/log/supervisor
+    mkdir -p /var/log/supervisor && \
+    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.4/install.sh | bash && \
+    export NVM_DIR="/home/gitlab-runner/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" && \
+    nvm install 6.9.1 && \
+    nvm use 6.9.1 && \
+    npm install -g cnpm --registry=https://registry.npm.taobao.org && \
+    cnpm install gulp -g
+
 
 RUN pip install -U letsencrypt && \
     mkdir -p /etc/letsencrypt/webrootauth

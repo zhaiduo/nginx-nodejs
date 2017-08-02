@@ -1,0 +1,6 @@
+
+nginx-nodejs:
+  image: nginx-nodejs:latest
+  ports:
+    - "80:80"
+
